@@ -1,0 +1,169 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-deep-foreground: var(--brand-deep-foreground);
+  --color-brand-deep-muted: var(--brand-deep-muted);
+  --color-brand-deep-border: var(--brand-deep-border);
+
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-fg: var(--success-fg);
+  --color-pending: var(--pending);
+  --color-pending-bg: var(--pending-bg);
+  --color-pending-fg: var(--pending-fg);
+  --color-failed: var(--failed);
+  --color-failed-bg: var(--failed-bg);
+  --color-failed-fg: var(--failed-fg);
+  --color-reversed: var(--reversed);
+  --color-reversed-bg: var(--reversed-bg);
+  --color-reversed-fg: var(--reversed-fg);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-geist-sans), Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --font-heading: var(--font-geist-sans), Helvetica, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 9999px;
+
+  --shadow-flat: 0 0 0 0 transparent;
+  --shadow-sm: 0 1px 2px oklch(0.21 0.015 264 / 0.07);
+  --shadow-md: 0 4px 12px oklch(0.21 0.015 264 / 0.1);
+  --shadow-lg: 0 16px 40px oklch(0.21 0.015 264 / 0.16);
+
+  --text-display: 40px;
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 600;
+  --text-h1: 28px;
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h1--font-weight: 600;
+  --text-h2: 20px;
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 600;
+  --text-body: 15px;
+  --text-body--line-height: 1.6;
+  --text-label: 13px;
+  --text-label--line-height: 1.4;
+  --text-label--font-weight: 500;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.5;
+}
+
+:root {
+  /* Brand */
+  --primary: oklch(0.52 0.12 168);
+  --primary-hover: oklch(0.44 0.11 168);
+  --primary-subtle: oklch(0.94 0.03 168);
+  --primary-foreground: oklch(0.985 0.008 168);
+
+  /* Deep brand surface — welcome screen, wallet card */
+  --brand-deep: oklch(0.25 0.04 168);
+  --brand-deep-foreground: oklch(1 0 0);
+  --brand-deep-muted: oklch(0.78 0.03 168);
+  --brand-deep-border: oklch(0.5 0.04 168);
+
+  /* Cool neutral ramp */
+  --card: oklch(0.994 0.002 264);
+  --card-foreground: oklch(0.21 0.015 264);
+  --background: oklch(0.975 0.003 264);
+  --foreground: oklch(0.21 0.015 264);
+  --popover: oklch(0.994 0.002 264);
+  --popover-foreground: oklch(0.21 0.015 264);
+  --muted: oklch(0.968 0.004 264);
+  --muted-foreground: oklch(0.55 0.015 264);
+  --secondary: oklch(0.968 0.004 264);
+  --secondary-foreground: oklch(0.37 0.015 264);
+  --accent: oklch(0.968 0.004 264);
+  --accent-foreground: oklch(0.21 0.015 264);
+  --border: oklch(0.922 0.006 264);
+  --input: oklch(0.83 0.01 264);
+  --ring: oklch(0.52 0.12 168);
+
+  /* Transaction status — reserved for transaction state only */
+  --success: oklch(0.58 0.13 150);
+  --success-bg: oklch(0.94 0.04 150);
+  --success-fg: oklch(0.42 0.11 150);
+  --pending: oklch(0.72 0.14 75);
+  --pending-bg: oklch(0.95 0.05 80);
+  --pending-fg: oklch(0.48 0.11 70);
+  --failed: oklch(0.58 0.18 25);
+  --failed-bg: oklch(0.95 0.04 25);
+  --failed-fg: oklch(0.5 0.16 25);
+  --reversed: oklch(0.6 0.12 245);
+  --reversed-bg: oklch(0.94 0.03 245);
+  --reversed-fg: oklch(0.46 0.11 245);
+  --destructive: oklch(0.58 0.18 25);
+
+  --radius: 12px;
+
+  --sidebar: oklch(0.994 0.002 264);
+  --sidebar-foreground: oklch(0.21 0.015 264);
+  --sidebar-primary: oklch(0.52 0.12 168);
+  --sidebar-primary-foreground: oklch(0.985 0.008 168);
+  --sidebar-accent: oklch(0.968 0.004 264);
+  --sidebar-accent-foreground: oklch(0.21 0.015 264);
+  --sidebar-border: oklch(0.922 0.006 264);
+  --sidebar-ring: oklch(0.52 0.12 168);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
