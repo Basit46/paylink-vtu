@@ -35,9 +35,16 @@ const DESKTOP_TABS = [
 
 export default function SettingsPage() {
   const { fullName, phone, initials } = useSessionStore();
-  const { settings, setSetting, recipients, transactions, resetToFirstRun, restoreDemo } =
-    useWalletStore();
-  const [tab, setTab] = React.useState<(typeof DESKTOP_TABS)[number]>("Security");
+  const {
+    settings,
+    setSetting,
+    recipients,
+    transactions,
+    resetToFirstRun,
+    restoreDemo,
+  } = useWalletStore();
+  const [tab, setTab] =
+    React.useState<(typeof DESKTOP_TABS)[number]>("Security");
 
   const dailyUsed = spentThisMonth(transactions);
   const dailyLimit = 200000;
@@ -127,7 +134,9 @@ export default function SettingsPage() {
               />
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="text-[14px] font-medium">
-                  {firstRun ? "Restore sample data" : "Reset to first-run state"}
+                  {firstRun
+                    ? "Restore sample data"
+                    : "Reset to first-run state"}
                 </span>
                 <span className="text-[12px] text-muted-foreground">
                   Empties the wallet and history so you can see the onboarding
@@ -156,7 +165,7 @@ export default function SettingsPage() {
                   "rounded-[10px] px-3 py-2 text-left text-[14px] font-medium transition-colors",
                   tab === item
                     ? "bg-primary-subtle text-[var(--primary-hover)]"
-                    : "text-secondary-foreground hover:bg-muted"
+                    : "text-secondary-foreground hover:bg-muted",
                 )}
               >
                 {item}
@@ -187,7 +196,11 @@ export default function SettingsPage() {
                         Last changed {USER.pinChanged}
                       </span>
                     </span>
-                    <Button render={<Link href="/pin" />} variant="outline" size="sm">
+                    <Button
+                      render={<Link href="/pin" />}
+                      variant="outline"
+                      size="sm"
+                    >
                       Change
                     </Button>
                   </div>
@@ -301,9 +314,7 @@ export default function SettingsPage() {
                 <h2 className="text-[20px] font-semibold tracking-[-0.02em]">
                   {tab}
                 </h2>
-                <p className="text-[14px] leading-relaxed text-muted-foreground">
-                  This pane is not part of the delivered screens.
-                </p>
+                <p className="text-[14px] leading-relaxed text-muted-foreground"></p>
               </div>
             )}
           </div>
@@ -349,13 +360,13 @@ function RowLink({
         strokeWidth={1.75}
         className={cn(
           "size-[18px] shrink-0",
-          destructive ? "text-failed-fg" : "text-muted-foreground"
+          destructive ? "text-failed-fg" : "text-muted-foreground",
         )}
       />
       <span
         className={cn(
           "min-w-0 flex-1 truncate text-[14px] font-medium",
-          destructive && "text-failed-fg"
+          destructive && "text-failed-fg",
         )}
       >
         {label}
