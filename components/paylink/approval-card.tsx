@@ -30,8 +30,13 @@ export function ApprovalCard({
 
       <div className="flex flex-col gap-2.5 border-t border-border pt-3.5">
         {approval.lines.map((line) => (
-          <div key={line.label} className="flex items-baseline justify-between gap-4">
-            <span className="text-[13px] text-muted-foreground">{line.label}</span>
+          <div
+            key={line.label}
+            className="flex items-baseline justify-between gap-4"
+          >
+            <span className="text-[13px] text-muted-foreground">
+              {line.label}
+            </span>
             <span className="text-right font-mono text-[13px] font-medium">
               {line.value}
             </span>
@@ -41,7 +46,7 @@ export function ApprovalCard({
 
       <div className="flex gap-2.5">
         <Button onClick={onConfirm} className="flex-1">
-          Confirm · enter PIN
+          Confirm · Enter PIN
         </Button>
         <Button onClick={onCancel} variant="ghost">
           Cancel

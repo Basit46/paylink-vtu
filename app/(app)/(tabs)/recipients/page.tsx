@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Plus, Search, Sparkles } from "lucide-react";
+import { Plus, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SearchInput } from "@/components/ui/SearchInput";
 import { ServiceIcon } from "@/components/paylink/service-icon";
 import { Eyebrow } from "@/components/paylink/form-parts";
 import { naira, nairaShort } from "@/lib/format";
@@ -22,9 +23,10 @@ const KIND_FILTERS = [
 export default function RecipientsPage() {
   const recipients = useWalletStore((s) => s.recipients);
   const [query, setQuery] = React.useState("");
-  const [kind, setKind] = React.useState<(typeof KIND_FILTERS)[number]["id"]>("all");
+  const [kind, setKind] =
+    React.useState<(typeof KIND_FILTERS)[number]["id"]>("all");
   const [selectedId, setSelectedId] = React.useState<string | null>(
-    recipients[0]?.id ?? null
+    recipients[0]?.id ?? null,
   );
 
   const filtered = recipients.filter((r) => {
@@ -54,16 +56,13 @@ export default function RecipientsPage() {
         </Button>
       </div>
 
-      <div className="flex flex-col gap-3 pt-5 sm:flex-row sm:items-center">
-        <label className="flex h-10 max-w-[380px] flex-1 items-center gap-2.5 rounded-[10px] border border-border bg-card px-3.5">
-          <Search strokeWidth={1.75} className="size-4 text-muted-foreground" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name or number"
-            className="w-full bg-transparent text-[14px] outline-none placeholder:text-muted-foreground"
-          />
-        </label>
+      <div className="shrink-0 h-fit flex flex-col gap-3 pt-5 sm:flex-row sm:items-center">
+        <SearchInput
+          className="max-w-[380px]"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search by name or number"
+        />
         <div className="flex gap-2 overflow-x-auto">
           {KIND_FILTERS.map((filter) => (
             <button
@@ -74,7 +73,7 @@ export default function RecipientsPage() {
                 "h-9 shrink-0 rounded-full border px-3.5 text-[12.5px] transition-colors",
                 kind === filter.id
                   ? "border-primary bg-primary-subtle text-[var(--primary-hover)]"
-                  : "border-border bg-card text-secondary-foreground hover:border-input"
+                  : "border-border bg-card text-secondary-foreground hover:border-input",
               )}
             >
               {filter.label}
@@ -101,7 +100,7 @@ export default function RecipientsPage() {
                   "grid w-full grid-cols-[1fr_auto] gap-4 px-[18px] py-3.5 text-left text-[13.5px] transition-colors sm:grid-cols-[1.6fr_1.2fr_1.4fr_0.9fr] sm:items-center",
                   selected?.id === recipient.id
                     ? "bg-primary-subtle/40"
-                    : "hover:bg-muted"
+                    : "hover:bg-muted",
                 )}
               >
                 <span className="flex items-center gap-2.5">

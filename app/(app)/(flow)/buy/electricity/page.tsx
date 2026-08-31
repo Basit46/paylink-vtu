@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { FilterSelect } from "@/components/ui/FilterSelect";
 import { FlowFooter, FlowHeader } from "@/components/paylink/flow-header";
 import {
   AmountInput,
@@ -25,6 +19,12 @@ import { formatMeter, naira } from "@/lib/format";
 import { METER_LOOKUP } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 import { usePurchaseStore } from "@/store/purchase";
+
+const DISCO_OPTIONS = DISCOS.map((d) => ({
+  value: d.id,
+  label: `${d.name} (${d.short})${d.available ? "" : " — unavailable"}`,
+  disabled: !d.available,
+}));
 
 type MeterType = "prepaid" | "postpaid";
 type Verification =
@@ -97,18 +97,14 @@ export default function BuyElectricityPage() {
       <div className="mx-auto flex w-full max-w-[560px] flex-1 flex-col gap-4 px-5 py-5">
         <FormCard>
           <Field label="Distribution company">
-            <Select value={discoId} onValueChange={(v) => v && setDiscoId(v)}>
-              <SelectTrigger className="h-13 w-full rounded-xl text-[15px]">
-                <SelectValue placeholder="Select a distribution company" />
-              </SelectTrigger>
-              <SelectContent>
-                {DISCOS.map((d) => (
-                  <SelectItem key={d.id} value={d.id} disabled={!d.available}>
-                    {d.name} ({d.short}){!d.available ? " — unavailable" : ""}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <FilterSelect
+              options={DISCO_OPTIONS}
+              value={discoId}
+              onValueChange={setDiscoId}
+              disableAll
+              placeholder="Select a distribution company"
+              triggerClassName="h-13 w-full rounded-xl text-[15px]"
+            />
           </Field>
 
           <Field label="Meter type">

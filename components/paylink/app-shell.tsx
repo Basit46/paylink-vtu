@@ -7,11 +7,11 @@ import {
   House,
   MessageCircle,
   Plus,
-  Search,
   Settings,
   UserRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SearchInput } from "@/components/ui/SearchInput";
 import { naira } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { useSessionStore } from "@/store/session";
@@ -98,13 +98,10 @@ export function DesktopTopBar({
 }) {
   return (
     <div className="hidden h-16 shrink-0 items-center gap-3 border-b border-border bg-card px-7 lg:flex">
-      <label className="flex h-10 max-w-[420px] flex-1 items-center gap-2.5 rounded-[10px] border border-border bg-muted px-3.5">
-        <Search strokeWidth={1.75} className="size-4 text-muted-foreground" />
-        <input
-          placeholder={searchPlaceholder}
-          className="w-full bg-transparent text-[14px] outline-none placeholder:text-muted-foreground"
-        />
-      </label>
+      <SearchInput
+        className="max-w-[420px] flex-1 bg-muted"
+        placeholder={searchPlaceholder}
+      />
       <span className="ml-auto flex h-[30px] items-center rounded-full border border-border px-3 font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase">
         Sandbox
       </span>

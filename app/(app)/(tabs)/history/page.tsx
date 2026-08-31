@@ -2,15 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Download, Search } from "lucide-react";
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { FilterSelect } from "@/components/ui/FilterSelect";
+import { SearchInput } from "@/components/ui/SearchInput";
 import { ServiceIcon } from "@/components/paylink/service-icon";
 import { StatusBadge } from "@/components/paylink/status-badge";
 import { TransactionRow } from "@/components/paylink/transaction-row";
@@ -68,7 +63,10 @@ export default function HistoryPage() {
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     return transactions.filter((tx) => {
-      if (service !== "all" && tx.service !== (service as ServiceId | "funding"))
+      if (
+        service !== "all" &&
+        tx.service !== (service as ServiceId | "funding")
+      )
         return false;
       if (status !== "all" && tx.status !== (status as TxStatus)) return false;
       if (!q) return true;
@@ -101,31 +99,37 @@ export default function HistoryPage() {
         </header>
 
         <div className="flex flex-col gap-4 px-5 pb-6">
-          <label className="flex h-11 items-center gap-2.5 rounded-xl border border-border bg-card px-3.5">
-            <Search strokeWidth={1.75} className="size-4 text-muted-foreground" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Reference, number or amount"
-              className="w-full bg-transparent text-[14px] outline-none placeholder:text-muted-foreground"
-            />
-          </label>
+          <SearchInput
+            className="h-11 rounded-xl"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Reference, number or amount"
+          />
 
           <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1">
-            <FilterChip
+            <FilterSelect
+              align="start"
               options={RANGE_FILTERS}
               value={range}
-              onChange={setRange}
+              onValueChange={setRange}
+              disableAll
+              triggerClassName="h-9 shrink-0 rounded-full border-border bg-card px-3.5 text-[12.5px]"
             />
-            <FilterChip
+            <FilterSelect
+              align="start"
               options={SERVICE_FILTERS}
               value={service}
-              onChange={setService}
+              onValueChange={setService}
+              disableAll
+              triggerClassName="h-9 shrink-0 rounded-full border-border bg-card px-3.5 text-[12.5px]"
             />
-            <FilterChip
+            <FilterSelect
+              align="start"
               options={STATUS_FILTERS}
               value={status}
-              onChange={setStatus}
+              onValueChange={setStatus}
+              disableAll
+              triggerClassName="h-9 shrink-0 rounded-full border-border bg-card px-3.5 text-[12.5px]"
             />
           </div>
 
@@ -181,25 +185,32 @@ export default function HistoryPage() {
         </div>
 
         <div className="flex items-center gap-3 pt-6">
-          <label className="flex h-10 max-w-[380px] flex-1 items-center gap-2.5 rounded-[10px] border border-border bg-card px-3.5">
-            <Search strokeWidth={1.75} className="size-4 text-muted-foreground" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Reference, recipient or amount"
-              className="w-full bg-transparent text-[14px] outline-none placeholder:text-muted-foreground"
-            />
-          </label>
-          <DesktopSelect options={RANGE_FILTERS} value={range} onChange={setRange} />
-          <DesktopSelect
+          <SearchInput
+            className="max-w-[380px] flex-1"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Reference, recipient or amount"
+          />
+          <FilterSelect
+            options={RANGE_FILTERS}
+            value={range}
+            onValueChange={setRange}
+            disableAll
+            triggerClassName="h-10 rounded-[10px] text-[13.5px]"
+          />
+          <FilterSelect
             options={SERVICE_FILTERS}
             value={service}
-            onChange={setService}
+            onValueChange={setService}
+            disableAll
+            triggerClassName="h-10 rounded-[10px] text-[13.5px]"
           />
-          <DesktopSelect
+          <FilterSelect
             options={STATUS_FILTERS}
             value={status}
-            onChange={setStatus}
+            onValueChange={setStatus}
+            disableAll
+            triggerClassName="h-10 rounded-[10px] text-[13.5px]"
           />
         </div>
 
@@ -271,7 +282,7 @@ export default function HistoryPage() {
                     "flex size-8 items-center justify-center rounded-lg font-mono text-[12.5px] transition-colors",
                     page === 1
                       ? "bg-primary-subtle text-[var(--primary-hover)]"
-                      : "text-muted-foreground hover:bg-muted"
+                      : "text-muted-foreground hover:bg-muted",
                   )}
                 >
                   {page}
@@ -293,55 +304,5 @@ function StatTile({ label, value }: { label: string; value: string }) {
       </span>
       <span className="font-mono tabular text-[19px] font-medium">{value}</span>
     </div>
-  );
-}
-
-function DesktopSelect({
-  options,
-  value,
-  onChange,
-}: {
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <Select value={value} onValueChange={(v) => v && onChange(v)}>
-      <SelectTrigger className="h-10 rounded-[10px] text-[13.5px]">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((o) => (
-          <SelectItem key={o.value} value={o.value}>
-            {o.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-}
-
-function FilterChip({
-  options,
-  value,
-  onChange,
-}: {
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <Select value={value} onValueChange={(v) => v && onChange(v)}>
-      <SelectTrigger className="h-9 shrink-0 rounded-full border-border bg-card px-3.5 text-[12.5px]">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((o) => (
-          <SelectItem key={o.value} value={o.value}>
-            {o.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
   );
 }
